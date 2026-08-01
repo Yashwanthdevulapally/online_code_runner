@@ -1,16 +1,21 @@
-version: "3.9"
-
 services:
   backend:
     build: ./backend
-    container_name: code_runner_backend
+    container_name: backend-container
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - code-runner-net
 
   frontend:
     build: ./frontend
-    container_name: code_runner_frontend
+    container_name: frontend-container
     ports:
       - "3000:80"
-    depends_on:
-      - backend
+    networks:
+      - code-runner-net
+
+networks:
+  code-runner-net:
